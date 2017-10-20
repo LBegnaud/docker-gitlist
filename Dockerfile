@@ -1,8 +1,10 @@
 FROM php:apache
 
-MAINTAINER Benoit NORRIN <benoit@norrin.fr>
+RUN apt-get update \
+        && apt-get install -y git \
+                cron \
+        && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN a2enmod rewrite
 
 ENV GITLIST_DOWNLOAD_URL 'https://github.com/klaussilveira/gitlist/releases/download/0.6.0/gitlist-0.6.0.tar.gz'
@@ -19,7 +21,10 @@ RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && cd /var/www/html/ \
         && mkdir cache \
         && chmod 777 cache \
-        && cp /var/www/html/config.ini-example /var/www/html/config.ini
+        && cp /var/www/html/config.ini-example /var/www/html/config.ini \
+        && systemctl enable cron
+
+ADD crontabs /etc/cron.d/crontabs
 
 VOLUME /var/www/html
 WORKDIR /var/www/html/
