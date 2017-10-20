@@ -5,13 +5,13 @@ MAINTAINER Benoit NORRIN <benoit@norrin.fr>
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN a2enmod rewrite
 
-ENV GITLIST_RELEASE_PATH '0.6.0/gitlist-0.6.0'
+ENV GITLIST_DOWNLOAD_URL 'https://s3.amazonaws.com/gitlist/gitlist-0.5.0.tar.gz'
 
 RUN mkdir -p /home/git/repositories/ \
         && cd /home/git/repositories/ \
         && git --bare init foo
 
-RUN curl -o /tmp/gitlist.tar.gz -SL https://github.com/klaussilveira/gitlist/releases/download/${GITLIST_RELEASE_PATH}.tar.gz \
+RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && tar -xzf /tmp/gitlist.tar.gz -C /tmp/ \
         && mv /tmp/gitlist/.htaccess /tmp/gitlist/* /var/www/html/ \
         && rm -rf /tmp/gitlist /tmp/gitlist.tar.gz \
