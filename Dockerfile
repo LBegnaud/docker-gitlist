@@ -1,11 +1,11 @@
-FROM php:5.6-apache
+FROM php:apache
 
 MAINTAINER Benoit NORRIN <benoit@norrin.fr>
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN a2enmod rewrite
 
-ENV GITLIST_DOWNLOAD_URL 'https://s3.amazonaws.com/gitlist/gitlist-0.5.0.tar.gz'
+ENV GITLIST_DOWNLOAD_URL 'https://github.com/klaussilveira/gitlist/releases/download/0.6.0/gitlist-0.6.0.tar.gz'
 
 RUN mkdir -p /home/git/repositories/ \
         && cd /home/git/repositories/ \
