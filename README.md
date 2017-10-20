@@ -15,3 +15,7 @@ Note that the TZ env variable can be any valid [Timezone Name](https://en.wikipe
 Adjust parameters as you see fit. 
 
 *NOTE* By default, this image will do a git pull every 15 minutes for every directory in the `/home/git/repositories` directory. This behavior can be avoided by blanking out the `/etc/cron.d/crontabs` file by symlinking some other blank file there: `-v /path/to/blank/file:/etc/cron.d/crontabs`
+
+
+- [github](https://github.com/RaderSolutions/docker-gitlist)
+- [docker hub](https://hub.docker.com/r/radersolutions/gitlist/)
