@@ -11,7 +11,10 @@ ENV GITLIST_DOWNLOAD_URL 'https://github.com/klaussilveira/gitlist/releases/down
 
 RUN mkdir -p /home/git/repositories/ \
         && cd /home/git/repositories/ \
-        && git --bare init foo
+        && git --bare init foo \
+        && mkdir -p /etc/cron.d
+
+ADD crontabs /etc/cron.d/crontabs
 
 RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && tar -xzf /tmp/gitlist.tar.gz -C /tmp/ \
@@ -24,7 +27,6 @@ RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && cp /var/www/html/config.ini-example /var/www/html/config.ini \
         && service cron start
 
-ADD crontabs /etc/cron.d/crontabs
 
 VOLUME /var/www/html
 WORKDIR /var/www/html/
