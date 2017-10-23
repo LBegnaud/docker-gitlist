@@ -25,6 +25,7 @@ RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && mkdir cache \
         && chmod 777 cache \
         && cp /var/www/html/config.ini-example /var/www/html/config.ini \
+        && sed -i 's/^.*timezone =.*$/timezone = "${TZ}"/' /var/www/html/config.ini \
         && service cron start
 
 
