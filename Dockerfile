@@ -15,7 +15,7 @@ RUN mkdir -p /home/git/repositories/ \
         && mkdir -p /etc/cron.d
 
 ADD crontabs /etc/cron.d/crontabs
-ADD *.sh /home/git/repositories
+ADD *.sh /home/git/repositories/
 
 RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && tar -xzf /tmp/gitlist.tar.gz -C /tmp/ \
