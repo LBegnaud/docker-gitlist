@@ -15,6 +15,7 @@ RUN mkdir -p /home/git/repositories/ \
         && mkdir -p /etc/cron.d
 
 ADD crontabs /etc/cron.d/crontabs
+ADD *.sh /home/git/repositories
 
 RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && tar -xzf /tmp/gitlist.tar.gz -C /tmp/ \
@@ -26,7 +27,8 @@ RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && chmod 777 cache \
         && cp /var/www/html/config.ini-example /var/www/html/config.ini \
         && sed -i 's/^.*timezone =.*$/timezone = "${TZ}"/' /var/www/html/config.ini \
-        && service cron start
+        && service cron start \
+        && chmod a+x /home/git/repositories/*.sh
 
 
 VOLUME /var/www/html
