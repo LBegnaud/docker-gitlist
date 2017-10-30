@@ -27,9 +27,10 @@ RUN curl -o /tmp/gitlist.tar.gz -SL ${GITLIST_DOWNLOAD_URL} \
         && chmod 777 cache \
         && cp /var/www/html/config.ini-example /var/www/html/config.ini \
         && sed -i 's/^.*timezone =.*$/timezone = "${TZ}"/' /var/www/html/config.ini \
-        && service cron start \
         && chmod a+x /home/git/repositories/*.sh
 
 
 VOLUME /var/www/html
 WORKDIR /var/www/html/
+
+ENTRYPOINT [ "/home/git/repositories/docker-entrypoint.sh" ]
